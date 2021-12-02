@@ -1,0 +1,4 @@
+name: "SecondChance"
+version: "1.0.1"
+api-version: "1.18"
+main: co.purevanilla.mcplugins.secondchance.Main
