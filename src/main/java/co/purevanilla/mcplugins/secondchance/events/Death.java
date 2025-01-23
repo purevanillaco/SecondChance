@@ -42,10 +42,10 @@ public class Death implements Listener {
     @EventHandler
     public void onDamage(EntityDamageEvent e){
         if(e.getEntity() instanceof Player player){
-            if(hasInventoryTotem(player)) return;
             if((player.getHealth() - e.getFinalDamage()) <= 0){
                 try {
                     if(!Main.registry.hadSecondChance(player)){
+                        if(hasInventoryTotem(player)) return;
                         e.setCancelled(true);
                         List<PotionEffect> effects = new ArrayList<>();
                         effects.add(new PotionEffect(PotionEffectType.SATURATION,30*20,10));
