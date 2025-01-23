@@ -5,6 +5,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.ChatColor;
 import org.bukkit.EntityEffect;
+import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -20,9 +21,14 @@ import java.util.logging.Level;
 
 public class Death implements Listener {
 
+    private boolean hasInventoryTotem(Player player){
+        return player.getInventory().contains(Material.TOTEM_OF_UNDYING);
+    }
+
     @EventHandler
     public void onDeath(EntityDeathEvent e) {
         if(e.getEntity() instanceof Player player){
+            if(hasInventoryTotem(player)) return;
             try {
                 if(!Main.registry.hadSecondChance(player)){
                     e.setCancelled(true);
@@ -36,6 +42,7 @@ public class Death implements Listener {
     @EventHandler
     public void onDamage(EntityDamageEvent e){
         if(e.getEntity() instanceof Player player){
+            if(hasInventoryTotem(player)) return;
             if((player.getHealth() - e.getFinalDamage()) <= 0){
                 try {
                     if(!Main.registry.hadSecondChance(player)){
